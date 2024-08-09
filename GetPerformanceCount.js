@@ -1,52 +1,52 @@
 function showResults() {
     const text = document.getElementById('inputText').value;
-    const getDataSourceMatches = text.match(/\w+\.getdatasource/g) || [];
-    const getPlanningMatches = text.match(/\w+\.getplanning/g) || [];
-    const getMemberMatches = text.match(/\w+\.getmember/g) || [];
-    const getMembersMatches = text.match(/\w+\.getmembers/g) || []; // New line for .getmembers
+    const getDataSourceMatches = text.match(/\w+\.getDataSource/g) || [];
+    const getPlanningMatches = text.match(/\w+\.getPlanning/g) || [];
+    const getMemberMatches = text.match(/\w+\.getMember/g) || [];
+    const getMembersMatches = text.match(/\w+\.getMembers/g) || []; // New line for .getMembers
     const getInputControlDataSourceMatches = text.match(/\w+\.getInputControlDataSource/g) || []; // New line for .getInputControlDataSource
     const setDimensionFilterMatches = text.match(/\w+\.setDimensionFilter(?!.*[{|}])/g) || []; // New line for .setDimensionFilter
 
     const getDataSourceCount = getDataSourceMatches.length;
     const getPlanningCount = getPlanningMatches.length;
     const getMemberCount = getMemberMatches.length;
-    const getMembersCount = getMembersMatches.length; // New line for .getmembers
+    const getMembersCount = getMembersMatches.length; // New line for .getMembers
     const getInputControlDataSourceCount = getInputControlDataSourceMatches.length; // New line for .getInputControlDataSource
     const setDimensionFilterCount = setDimensionFilterMatches.length; // New line for .setDimensionFilter
 
-    const uniqueGetDataSource = new Set(getDataSourceMatches);
-    const uniqueGetPlanning = new Set(getPlanningMatches);
-    const uniqueGetMember = new Set(getMemberMatches);
-    const uniqueGetMembers = new Set(getMembersMatches); // New line for .getmembers
+    const uniquegetDataSource = new Set(getDataSourceMatches);
+    const uniquegetPlanning = new Set(getPlanningMatches);
+    const uniquegetMember = new Set(getMemberMatches);
+    const uniquegetMembers = new Set(getMembersMatches); // New line for .getMembers
     const uniqueGetInputControlDataSource = new Set(getInputControlDataSourceMatches); // New line for .getInputControlDataSource
     const uniqueSetDimensionFilter = new Set(setDimensionFilterMatches); // New line for .setDimensionFilter
 
-    const uniqueGetDataSourceCount = uniqueGetDataSource.size;
-    const uniqueGetPlanningCount = uniqueGetPlanning.size;
-    const uniqueGetMemberCount = uniqueGetMember.size;
-    const uniqueGetMembersCount = uniqueGetMembers.size; // New line for .getmembers
+    const uniquegetDataSourceCount = uniquegetDataSource.size;
+    const uniquegetPlanningCount = uniquegetPlanning.size;
+    const uniquegetMemberCount = uniquegetMember.size;
+    const uniquegetMembersCount = uniquegetMembers.size; // New line for .getMembers
     const uniqueGetInputControlDataSourceCount = uniqueGetInputControlDataSource.size; // New line for .getInputControlDataSource
     const uniqueSetDimensionFilterCount = uniqueSetDimensionFilter.size; // New line for .setDimensionFilter
 
     const getDataSourceTime = getDataSourceCount * 0.8;
     const getPlanningTime = getPlanningCount * 0.8;
     const getMemberTime = getMemberCount * 0.8;
-    const getMembersTime = getMembersCount * 0.8; // New line for .getmembers
+    const getMembersTime = getMembersCount * 0.8; // New line for .getMembers
     const getInputControlDataSourceTime = getInputControlDataSourceCount * 0.8; // New line for .getInputControlDataSource
     const setDimensionFilterTime = setDimensionFilterCount * 0.5; // New line for .setDimensionFilter
 
-    const uniqueGetDataSourceTime = uniqueGetDataSourceCount * 0.8;
-    const uniqueGetPlanningTime = uniqueGetPlanningCount * 0.8;
-    const uniqueGetMemberTime = uniqueGetMemberCount * 0.8;
-    const uniqueGetMembersTime = uniqueGetMembersCount * 0.8; // New line for .getmembers
+    const uniquegetDataSourceTime = uniquegetDataSourceCount * 0.8;
+    const uniquegetPlanningTime = uniquegetPlanningCount * 0.8;
+    const uniquegetMemberTime = uniquegetMemberCount * 0.8;
+    const uniquegetMembersTime = uniquegetMembersCount * 0.8; // New line for .getMembers
     const uniqueGetInputControlDataSourceTime = uniqueGetInputControlDataSourceCount * 0.8; // New line for .getInputControlDataSource
     const uniqueSetDimensionFilterTime = uniqueSetDimensionFilterCount * 0.5; // New line for .setDimensionFilter
 
     const totalSeconds = (getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime) - 
-                         (uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime) + 
+                         (uniquegetDataSourceTime + uniquegetPlanningTime + uniquegetMemberTime + uniquegetMembersTime + uniqueGetInputControlDataSourceTime) + 
                          setDimensionFilterTime; // Updated line
 
-    const uniqueSeconds = uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime; // Updated line
+    const uniqueSeconds = uniquegetDataSourceTime + uniquegetPlanningTime + uniquegetMemberTime + uniquegetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime; // Updated line
 
     document.getElementById('results').innerHTML = `
         <table class="table">
@@ -60,38 +60,38 @@ function showResults() {
                 <th><i class="fas fa-lightbulb"></i> Improvements</th>
             </tr>
             <tr class="datasource">
-                <td>.getdatasource</td>
+                <td>.getDataSource</td>
                 <td>${getDataSourceCount}</td>
                 <td>${getDataSourceTime.toFixed(2)}</td>
-                <td>${uniqueGetDataSourceCount}</td>
-                <td>${uniqueGetDataSourceTime.toFixed(2)}</td>
+                <td>${uniquegetDataSourceCount}</td>
+                <td>${uniquegetDataSourceTime.toFixed(2)}</td>
                 <td>Data retrieval approximatly Cost 0.8 seconds</td>
                 <td>Store in variables if used multiple times</td>
             </tr>
             <tr class="planning">
-                <td>.getplanning</td>
+                <td>.getPlanning</td>
                 <td>${getPlanningCount}</td>
                 <td>${getPlanningTime.toFixed(2)}</td>
-                <td>${uniqueGetPlanningCount}</td>
-                <td>${uniqueGetPlanningTime.toFixed(2)}</td>
+                <td>${uniquegetPlanningCount}</td>
+                <td>${uniquegetPlanningTime.toFixed(2)}</td>
                 <td>Data retrieval approximatly Cost 0.8 seconds</td>
                 <td>Store in variables if used multiple times</td>
             </tr>
             <tr class="member">
-                <td>.getmember</td>
+                <td>.getMember</td>
                 <td>${getMemberCount}</td>
                 <td>${getMemberTime.toFixed(2)}</td>
-                <td>${uniqueGetMemberCount}</td>
-                <td>${uniqueGetMemberTime.toFixed(2)}</td>
+                <td>${uniquegetMemberCount}</td>
+                <td>${uniquegetMemberTime.toFixed(2)}</td>
                 <td>Data retrieval approximatly Cost 0.8 seconds</td>
                 <td>Store in variables if used multiple times</td>
             </tr>
             <tr class="member">
-                <td>.getmembers</td>
+                <td>.getMembers</td>
                 <td>${getMembersCount}</td>
                 <td>${getMembersTime.toFixed(2)}</td>
-                <td>${uniqueGetMembersCount}</td>
-                <td>${uniqueGetMembersTime.toFixed(2)}</td>
+                <td>${uniquegetMembersCount}</td>
+                <td>${uniquegetMembersTime.toFixed(2)}</td>
                 <td>Data retrieval approximatly Cost 0.8 seconds</td>
                 <td>Store in variables if used multiple times</td>
             </tr>
@@ -117,7 +117,7 @@ function showResults() {
                 <td>Total</td>
                 <td>${getDataSourceCount + getPlanningCount + getMemberCount + getMembersCount + getInputControlDataSourceCount + setDimensionFilterCount}</td>
                 <td>${totalSeconds.toFixed(2)}</td>
-                <td>${uniqueGetDataSourceCount + uniqueGetPlanningCount + uniqueGetMemberCount + uniqueGetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
+                <td>${uniquegetDataSourceCount + uniquegetPlanningCount + uniquegetMemberCount + uniquegetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
                 <td>${uniqueSeconds.toFixed(2)}</td>
                 <td></td>
                 <td></td>
