@@ -42,8 +42,9 @@ function showResults() {
     const uniqueGetInputControlDataSourceTime = uniqueGetInputControlDataSourceCount * 0.8; // New line for .getInputControlDataSource
     const uniqueSetDimensionFilterTime = uniqueSetDimensionFilterCount * 0.5; // New line for .setDimensionFilter
 
-    const totalSeconds = (getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime + setDimensionFilterTime) - 
-                         (uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime); // Updated line
+    const totalSeconds = (getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime) - 
+                         (uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime) + 
+                         setDimensionFilterTime; // Updated line
 
     const uniqueSeconds = uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime; // Updated line
 
