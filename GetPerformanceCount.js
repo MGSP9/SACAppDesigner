@@ -42,20 +42,22 @@ function showResults() {
     const uniqueGetInputControlDataSourceTime = uniqueGetInputControlDataSourceCount * 0.8; // New line for .getInputControlDataSource
     const uniqueSetDimensionFilterTime = uniqueSetDimensionFilterCount * 0.5; // New line for .setDimensionFilter
 
-    const totalSeconds = getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime + setDimensionFilterTime; // Updated line
+    const totalSeconds = (getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime + setDimensionFilterTime) - 
+                         (uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime); // Updated line
+
     const uniqueSeconds = uniqueGetDataSourceTime + uniqueGetPlanningTime + uniqueGetMemberTime + uniqueGetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime; // Updated line
 
-document.getElementById('results').innerHTML = `
-    <table class="table">
-        <tr>
-            <th><i class="fas fa-list"></i> Data Request Functions</th>
-            <th><i class="fas fa-sort-numeric-up"></i> Times Used</th>
-            <th><i class="fas fa-clock"></i> Total Time (seconds)</th>
-            <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Times Used</th>
-            <th><i class="fas fa-stopwatch"></i> Unique Time (seconds)</th>
-            <th><i class="fas fa-exclamation-circle"></i> Optimalisation Reason</th>
-            <th><i class="fas fa-lightbulb"></i> Improvements</th>
-        </tr>
+    document.getElementById('results').innerHTML = `
+        <table class="table">
+            <tr>
+                <th><i class="fas fa-list"></i> Data Request Functions</th>
+                <th><i class="fas fa-sort-numeric-up"></i> Times Used</th>
+                <th><i class="fas fa-clock"></i> Total Time (seconds)</th>
+                <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Times Used</th>
+                <th><i class="fas fa-stopwatch"></i> Unique Time (seconds)</th>
+                <th><i class="fas fa-exclamation-circle"></i> Optimalisation Reason</th>
+                <th><i class="fas fa-lightbulb"></i> Improvements</th>
+            </tr>
             <tr class="datasource">
                 <td>.getdatasource</td>
                 <td>${getDataSourceCount}</td>
