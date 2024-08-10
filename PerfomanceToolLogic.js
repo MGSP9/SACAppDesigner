@@ -119,7 +119,7 @@
             window.open("https://datachance.nl/contact", "_blank");
         }
 
-        function showNewTextField() {
+function showNewTextField() {
     let text = document.getElementById('inputText').value;
 
     // Logic to replace duplicate method calls with variables
@@ -141,7 +141,15 @@
         }
     });
 
-    document.getElementById('newInputText').value = text;
-    document.getElementById('newTextField').classList.remove('hidden');
-    document.getElementById('inputText').classList.remove('hidden');
+    // Return the adapted text
+    let newtext = text;
+    document.getElementById('inputText').value = newtext;
+    return newtext;
+}
+
+                
+//     document.getElementById('inputText').value = newText;
+//    document.getElementById('newInputText').value = text;
+   // document.getElementById('newTextField').classList.remove('hidden');
+  //  document.getElementById('inputText').classList.remove('hidden');
 }
