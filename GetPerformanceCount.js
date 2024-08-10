@@ -103,26 +103,45 @@
 
             document.getElementById('optimization').innerHTML = `
                <p class="optimized-text" style="color: white;"><i class="fas fa-trophy"></i> Your code can be more optimized with ${totalSeconds.toFixed(2)} seconds.</p>
-               <button class="button" onclick="getInTouch()">
+               <button class="button emphasized" onclick="getInTouch()">
                  <i class="fas fa-envelope"></i> Get in touch for a more detailed analysis
+               </button>
+               <button class="button de-emphasized" onclick="showNewTextField()">
+                 <i class="fas fa-eye"></i> Show Text Field
                </button>
             `;
 
-    // Scroll to the results section with offset
-            const resultsElement = document.getElementById('results');
-            const offset = 200; // Adjust this value to set the desired offset
-            const elementPosition = resultsElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - offset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+            // Scroll to the results section
+            document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
         }
 
-
-
-
         function getInTouch() {
-                         window.open("https://datachance.nl/contact", "_blank");
+            window.open("https://datachance.nl/contact", "_blank");
+        }
+
+        function showNewTextField() {
+    let text = document.getElementById('inputText').value;
+
+    // Logic to replace duplicate method calls with variables
+    const methods = ['getDataSource', 'getPlanning', 'getMember', 'getMembers', 'getInputControlDataSource'];
+    methods.forEach(method => {
+        const regex = new RegExp(`(\\w+)\\.${method}`, 'g');
+        const matches = text.match(regex) || [];
+        if (matches.length > 1) {
+            const uniqueMatches = [...new Set(matches)];
+            uniqueMatches.forEach(match => {
+                const varName = `ds_${match.split('.')[0]}`;
+                text = text.replace(new RegExp(`\\b${match}\\b`, 'g'), (m, offset) => {
+                    if (offset === text.indexOf(m)) {
+                        return `var ${varName} = ${m};\n${varName}`;
+                    }
+                    return varName;
+                });
+            });
+        }
+    });
+
+    document.getElementById('newInputText').value = text;
+    document.getElementById('newTextField').classList.remove('hidden');
+    document.getElementById('inputText').classList.remove('hidden');
 }
