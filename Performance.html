@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<link rel="stylesheet" type=“text/css” href="./SACPerformance.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Occurrences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        #inputText {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    float: left;
+
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: 	#FFFFFF;
+            font-weight: bold;
+        }
+        .datasource {
+            background-color: #FFFFFF;
+        }
+        .planning {
+            background-color: 	#FFFFFF;
+        }
+        .member {
+            background-color:	#FFFFFF;
+        }
+        .total {
+            font-weight: bold;
+            background-color: 	#FFFFFF;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .button {
+             clear: both; /* Ensures the button appears below the floated text area */
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #78bcc4;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+.optimized-text {
+    font-size: 24px;
+    color: #ffffff;
+    margin-top: 1em; /* Adjust the value as needed for the tab space */
+}
+        .hidden {
+            display: none;
+        }
+        .emphasized {
+            font-weight: bold;
+            background-color: #78bcc4;
+            color: white;
+        }
+        .de-emphasized {
+            font-weight: normal;
+            background-color: #ffffff;
+            color: #78bcc4;
+    </style>
+</head>
+<body>
+    <textarea id="inputText" placeholder="Enter your SAC script here...
+
+We analyze your script on optimization for data retrieval from the SAC engine. We provide a report on where to optimize your script.
+
+!---We do not store any data provided here. All data remains in the browser. Still it is always a good practice to anonymize your data. --!
+"
+></textarea><br>
+<button class="button" onclick="showResults()">
+  <i class="fas fa-paper-plane"></i> Show Optimalisation Gains
+</button>
+    <div id="results"></div>
+    <div id="optimization"></div>
+    <input type="text" id="inputText" readonly>
+
+    <script>
+        function showResults() {
+            const text = document.getElementById('inputText').value;
+            const getDataSourceMatches = text.match(/\w+\.getDataSource/g) || [];
+            const getPlanningMatches = text.match(/\w+\.getPlanning/g) || [];
+            const getMemberMatches = text.match(/\w+\.getMember/g) || [];
+            const getMembersMatches = text.match(/\w+\.getMembers/g) || [];
+            const getInputControlDataSourceMatches = text.match(/\w+\.getInputControlDataSource/g) || [];
+            const setDimensionFilterMatches = text.match(/\w+\.setDimensionFilter(?!.*[{|}])/g) || [];
+
+            const getDataSourceCount = getDataSourceMatches.length;
+            const getPlanningCount = getPlanningMatches.length;
+            const getMemberCount = getMemberMatches.length;
+            const getMembersCount = getMembersMatches.length;
+            const getInputControlDataSourceCount = getInputControlDataSourceMatches.length;
+            const setDimensionFilterCount = setDimensionFilterMatches.length;
+
+            const uniquegetDataSource = new Set(getDataSourceMatches);
+            const uniquegetPlanning = new Set(getPlanningMatches);
+            const uniquegetMember = new Set(getMemberMatches);
+            const uniquegetMembers = new Set(getMembersMatches);
+            const uniqueGetInputControlDataSource = new Set(getInputControlDataSourceMatches);
+            const uniqueSetDimensionFilter = new Set(setDimensionFilterMatches);
+
+            const uniquegetDataSourceCount = uniquegetDataSource.size;
+            const uniquegetPlanningCount = uniquegetPlanning.size;
+            const uniquegetMemberCount = uniquegetMember.size;
+            const uniquegetMembersCount = uniquegetMembers.size;
+            const uniqueGetInputControlDataSourceCount = uniqueGetInputControlDataSource.size;
+            const uniqueSetDimensionFilterCount = uniqueSetDimensionFilter.size;
+
+            const getDataSourceTime = getDataSourceCount * 0.8;
+            const getPlanningTime = getPlanningCount * 0.8;
+            const getMemberTime = getMemberCount * 0.8;
+            const getMembersTime = getMembersCount * 0.8;
+            const getInputControlDataSourceTime = getInputControlDataSourceCount * 0.8;
+            const setDimensionFilterTime = setDimensionFilterCount * 0.5;
+
+            const uniquegetDataSourceTime = uniquegetDataSourceCount * 0.8;
+            const uniquegetPlanningTime = uniquegetPlanningCount * 0.8;
+            const uniquegetMemberTime = uniquegetMemberCount * 0.8;
+            const uniquegetMembersTime = uniquegetMembersCount * 0.8;
+            const uniqueGetInputControlDataSourceTime = uniqueGetInputControlDataSourceCount * 0.8;
+            const uniqueSetDimensionFilterTime = uniqueSetDimensionFilterCount * 0.5;
+
+            const totalSeconds = (getDataSourceTime + getPlanningTime + getMemberTime + getMembersTime + getInputControlDataSourceTime) - 
+                                 (uniquegetDataSourceTime + uniquegetPlanningTime + uniquegetMemberTime + uniquegetMembersTime + uniqueGetInputControlDataSourceTime) + 
+                                 setDimensionFilterTime;
+
+            const uniqueSeconds = uniquegetDataSourceTime + uniquegetPlanningTime + uniquegetMemberTime + uniquegetMembersTime + uniqueGetInputControlDataSourceTime + uniqueSetDimensionFilterTime;
+
+            const rows = [
+                { name: '.getDataSource', count: getDataSourceCount, time: getDataSourceTime, uniqueCount: uniquegetDataSourceCount, uniqueTime: uniquegetDataSourceTime },
+                { name: '.getPlanning', count: getPlanningCount, time: getPlanningTime, uniqueCount: uniquegetPlanningCount, uniqueTime: uniquegetPlanningTime },
+                { name: '.getMember', count: getMemberCount, time: getMemberTime, uniqueCount: uniquegetMemberCount, uniqueTime: uniquegetMemberTime },
+                { name: '.getMembers', count: getMembersCount, time: getMembersTime, uniqueCount: uniquegetMembersCount, uniqueTime: uniquegetMembersTime },
+                { name: '.getInputControlDataSource', count: getInputControlDataSourceCount, time: getInputControlDataSourceTime, uniqueCount: uniqueGetInputControlDataSourceCount, uniqueTime: uniqueGetInputControlDataSourceTime },
+                { name: '.setDimensionFilter', count: setDimensionFilterCount, time: setDimensionFilterTime, uniqueCount: uniqueSetDimensionFilterCount, uniqueTime: uniqueSetDimensionFilterTime }
+            ];
+
+            let tableRows = rows.map(row => {
+                const optimalisationReason = row.count === 0 ? '' : 'Data retrieval approximatly Cost 0.8 seconds';
+                const improvements = row.count === 0 ? '' : 'Store in variables if used multiple times';
+                return `
+                    <tr class="member">
+                        <td>${row.name}</td>
+                        <td>${row.count}</td>
+                        <td>${row.time.toFixed(2)}</td>
+                        <td>${row.uniqueCount}</td>
+                        <td>${row.uniqueTime.toFixed(2)}</td>
+                        <td>${optimalisationReason}</td>
+                        <td>${improvements}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            tableRows += `
+                <tr class="total">
+                    <td>Total</td>
+                    <td>${getDataSourceCount + getPlanningCount + getMemberCount + getMembersCount + getInputControlDataSourceCount + setDimensionFilterCount}</td>
+                    <td>${totalSeconds.toFixed(2)}</td>
+                    <td>${uniquegetDataSourceCount + uniquegetPlanningCount + uniquegetMemberCount + uniquegetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
+                    <td>${uniqueSeconds.toFixed(2)}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            `;
+
+            document.getElementById('results').innerHTML = `
+                <h2 style="color: white;"><i class="fas fa-table"></i> Optimization Report</h2>
+                <table class="table">
+                    <tr>
+                        <th><i class="fas fa-list"></i> Data Request Functions</th>
+                        <th><i class="fas fa-sort-numeric-up"></i> Times Used</th>
+                        <th><i class="fas fa-clock"></i> Total Time (seconds)</th>
+                        <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Times Used</th>
+                        <th><i class="fas fa-stopwatch"></i> Unique Time (seconds)</th>
+                        <th><i class="fas fa-exclamation-circle"></i> Optimalisation Reason</th>
+                        <th><i class="fas fa-lightbulb"></i> Improvements</th>
+                    </tr>
+                    ${tableRows}
+                </table>
+            `;
+
+            document.getElementById('optimization').innerHTML = `
+               <p class="optimized-text" style="color: white;"><i class="fas fa-trophy"></i> Your code can be more optimized with ${totalSeconds.toFixed(2)} seconds.</p>
+               <button class="button emphasized" onclick="getInTouch()">
+                 <i class="fas fa-envelope"></i> Get in touch for a more detailed analysis
+               </button>
+               <button class="button de-emphasized" onclick="showNewTextField()">
+                 <i class="fas fa-eye"></i> Show Text Field
+               </button>
+            `;
+
+            // Scroll to the results section
+            document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getInTouch() {
+            window.open("https://datachance.nl/contact", "_blank");
+        }
+
+        function showNewTextField() {
+    let text = document.getElementById('inputText').value;
+
+    // Logic to replace duplicate method calls with variables
+    const methods = ['getDataSource', 'getPlanning', 'getMember', 'getMembers', 'getInputControlDataSource'];
+    methods.forEach(method => {
+        const regex = new RegExp(`(\\w+)\\.${method}`, 'g');
+        const matches = text.match(regex) || [];
+        if (matches.length > 1) {
+            const uniqueMatches = [...new Set(matches)];
+            uniqueMatches.forEach(match => {
+                const varName = `ds_${match.split('.')[0]}`;
+                text = text.replace(new RegExp(`\\b${match}\\b`, 'g'), (m, offset) => {
+                    if (offset === text.indexOf(m)) {
+                        return `var ${varName} = ${m};\n${varName}`;
+                    }
+                    return varName;
+                });
+            });
+        }
+    });
+
+    document.getElementById('newInputText').value = text;
+    document.getElementById('newTextField').classList.remove('hidden');
+    document.getElementById('inputText').classList.remove('hidden');
+}
+    </script>
+</body>
+</html>
