@@ -104,9 +104,8 @@
         .progress-tracker {
             position: fixed;
             top: 10px;
-            left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 100%;
             background: white;
             padding: 10px;
             border: 1px solid #ccc;
