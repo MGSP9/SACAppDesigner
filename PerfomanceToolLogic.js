@@ -134,40 +134,21 @@ function showNewTextField() {
     let modifiedText = text;
 
     // Function to process duplicates
-function processDuplicates(text, keyword) {
-    const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
-    const matches = text.match(regex) || [];
-    const uniqueMatches = new Set(matches);
-    let newText = text;
+    function processDuplicates(text, keyword) {
+        const regex = new RegExp(`(\\w+)\\${keyword}\\(\\)`, 'g');
+        const matches = text.match(regex) || [];
+        const uniqueMatches = new Set(matches);
+        let newText = text;
+        let variables = '';
 
-    uniqueMatches.forEach(match => {
-        const count = matches.filter(m => m === match).length;
-        if (count > 1) {
-            const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
-              console.log (newText);
-    
-            console.log ("Replacement text");
-            console.log (new RegExp(match+"()", 'g'));
-            console.log ("New text");
-            console.log (`${keyword.slice(1)}_${match.split('.')[0]}`);
-                      
-            newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                        
-            console.log (newText);
-const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
-newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
+        uniqueMatches.forEach(match => {
+            const variableName = `${match.split('.')[0]}_${keyword.slice(1)}`;
+            variables += `var ${variableName} = ${match}();\n`;
+            newText = newText.replace(new RegExp(match + '\\(\\)', 'g'), variableName);
+        });
 
-            
-            console.log (newText);
-            newText = `${variableName};\n${newText}`;
-              console.log (newText);
-        }
-    });
-
-
-
-    return newText;
-}
+        return variables + newText;
+    }
 
     // Function to process .setDimensionFilter exception
     function processDimensionFilter(text) {
