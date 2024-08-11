@@ -178,7 +178,7 @@ function showNewTextField() {
     document.getElementById('inputText').scrollIntoView({ behavior: 'smooth' });
 
     // Adjust the scroll position by 50px
-    window.scrollBy(0, -50);
+    window.scrollBy(0, 400);
     
     /// UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
