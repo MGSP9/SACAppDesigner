@@ -117,7 +117,6 @@ function showResults() {
     `;
 
     // Scroll to the results section
-        // Set the progress-list element above the optimization document
     document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
 }
 
