@@ -121,7 +121,7 @@ function getInTouch() {
 
 function showNewTextField() {
     const text = document.getElementById('inputText').value;
-    const modifiedText = text;
+    let modifiedText = text;
 
     // Function to process duplicates
     function processDuplicates(text, keyword) {
@@ -141,6 +141,20 @@ function showNewTextField() {
 
         return newText;
     }
+
+    // Function to process .setDimensionFilter exception
+    function processDimensionFilter(text) {
+        const regex = /\.setDimensionFilter\("([^"]+)",\s*"([^"]+)"\)/g;
+        return text.replace(regex, (match, p1, p2) => {
+            if (!p2.includes('{') && !p2.includes('}')) {
+                return `.setDimensionFilter("${p1}", {id: "${p2}", description: "${p2}"})`;
+            }
+            return match;
+        });
+    }
+
+    // Apply the .setDimensionFilter exception
+    modifiedText = processDimensionFilter(modifiedText);
 
     let processedText = modifiedText;
     const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
