@@ -8,6 +8,7 @@ body {
 #inputText {
     width: 100%;
     height: 400px;
+    background-color: white;
     background: url('https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=214,fit=crop,q=95/dJoJPZkqO7IMQxq7/logo-data-chance-grote-tekst-A3QpljZjxLt9Obeb.png') no-repeat center center;
     border-radius: 10px;
     border: 1px solid #ccc;
