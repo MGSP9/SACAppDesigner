@@ -127,7 +127,7 @@ function getInTouch() {
 
 function showNewTextField() {
     // UI step 3
-  document.querySelector('.progress-tracker li:nth-child(2)').classList.add('completed');
+    document.querySelector('.progress-tracker li:nth-child(2)').classList.add('completed');
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('in-progress');
 
     const text = document.getElementById('inputText').value;
@@ -144,8 +144,10 @@ function showNewTextField() {
             const count = matches.filter(m => m === match).length;
             if (count > 1) {
                 const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}`;
-                newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                newText = `${variableName}\n${newText}`;
+                if (!variableName.includes(')(')) {
+                    newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
+                    newText = `${variableName}\n${newText}`;
+                }
             }
         });
 
@@ -176,7 +178,7 @@ function showNewTextField() {
     document.getElementById('inputText').value = processedText;
     
     // UI Steps enrichment
-   window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     
     /// UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
@@ -184,6 +186,6 @@ function showNewTextField() {
 
     // Highlight the changes made by the function
     const tempElement = document.createElement('div');
-    tempElement.innerHTML = "// #### Performance gains in script ##### \n 1. We created variables for your datasources, so that the system only request them once. \n 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
+    tempElement.innerHTML = "// #### Performance gains in script ##### \n \\ 1. We created variables for your datasources, so that the system only request them once. \n \\ 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n \\ 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
     document.getElementById('inputText').value = tempElement.innerHTML;
 }
