@@ -175,7 +175,11 @@ function showNewTextField() {
     document.getElementById('inputText').value = processedText;
     
     // UI Steps enrichment
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('inputText');
+    element.scrollIntoView({ behavior: 'smooth' });
+
+    // Adjust the scroll position by 50px
+    window.scrollBy(0, -50);
     
     /// UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
