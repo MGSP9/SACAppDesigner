@@ -167,7 +167,8 @@ function showNewTextField() {
 
     // Highlight the changes made by the function
     const tempElement = document.createElement('div');
-    tempElement.innerHTML = "// We created variables for your datasources, so that the system only request them once. If you use the datasources also in different scripts, make sure to create global variables for these to save time." + processedText;
+    tempElement.innerHTML = "// We created variables for your datasources, so that the system only request them once. If you use the datasources also in different scripts, make sure to create global variables for these to save time.
+        \n" + processedText;
     document.getElementById('inputText').parentElement.innerHTML = `
         <textarea id="inputText" placeholder="Enter your SAC script here...">${tempElement.innerHTML}</textarea>
     `;
