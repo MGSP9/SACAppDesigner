@@ -119,7 +119,7 @@ function getInTouch() {
     window.open("https://datachance.nl/contact", "_blank");
 }
 
-showNewTextField() {
+function showNewTextField() {
     const text = document.getElementById('inputText').value;
     let modifiedText = text;
 
