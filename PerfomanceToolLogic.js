@@ -187,4 +187,4 @@ function showNewTextField() {
     tempElement.innerHTML = "// #### Performance gains in script ##### \n 1. We created variables for your datasources, so that the system only request them once. \n 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
     document.getElementById('inputText').value = tempElement.innerHTML;
 }
-}
+
