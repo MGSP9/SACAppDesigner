@@ -102,7 +102,7 @@
         }
 
         .progress-tracker {
-            position: fixed;
+            position: sticky;
             bottom: 10px;
             transform: translateX(-50%);
             left: 50%;
