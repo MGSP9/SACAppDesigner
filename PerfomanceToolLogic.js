@@ -143,7 +143,7 @@ function showNewTextField() {
         uniqueMatches.forEach(match => {
             const count = matches.filter(m => m === match).length;
             if (count > 1) {
-                const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
+                const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}`;
                 newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
                 newText = `${variableName}\n${newText}`;
             }
