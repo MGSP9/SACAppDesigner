@@ -118,7 +118,7 @@ function showResults() {
 
     // Scroll to the results section
     // document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
-       window.scrollTo({ bottom: 0, behavior: 'smooth' });
+       window.scrollTo({ bottom: 600, behavior: 'smooth' });
 }
 
 function getInTouch() {
