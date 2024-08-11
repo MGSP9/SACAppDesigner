@@ -144,7 +144,7 @@ function processDuplicates(text, keyword) {
         const count = matches.filter(m => m === match).length;
         if (count > 1) {
             const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
-              
+              console.log (newText);
             newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
                 console.log (newText);
             newText = `${variableName}\n${newText}`;
