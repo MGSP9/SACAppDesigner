@@ -118,12 +118,12 @@ function showResults() {
 
     // Scroll to the results section
         // Set the progress-list element above the optimization document
-    const progressList = document.querySelector('.progress-list');
+    const progressList = document.querySelector('progress-list');
     const optimizationSection = document.getElementById('optimization');
     optimizationSection.parentNode.insertBefore(progressList, optimizationSection);
 }
 
-    document.getElementById('.progress-list').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('progress-list').scrollIntoView({ behavior: 'smooth' });
 }
 
 function getInTouch() {
@@ -182,6 +182,7 @@ function showNewTextField() {
     
     // UI Steps enrichment
     document.getElementById('inputText').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('progress-list').scrollIntoView({ behavior: 'smooth' });
     
     /// UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
