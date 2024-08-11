@@ -57,6 +57,11 @@ function showResults() {
         { name: '.setDimensionFilter', count: setDimensionFilterCount, time: setDimensionFilterTime, uniqueCount: uniqueSetDimensionFilterCount, uniqueTime: uniqueSetDimensionFilterTime }
     ];
 
+
+    /// UI tracker- step 2
+    document.querySelector('.progress-tracker li:nth-child(1)').classList.remove('completed');
+    document.querySelector('.progress-tracker li:nth-child(2)').classList.add('in-progress');
+
     let tableRows = rows.map(row => {
         const optimalisationReason = row.count === 0 ? '' : 'Data retrieval approximatly Cost 0.8 seconds';
         const improvements = row.count === 0 ? '' : 'Store in variables if used multiple times';
@@ -120,6 +125,11 @@ function getInTouch() {
 }
 
 function showNewTextField() {
+
+    /// ui step 3
+   document.querySelector('.progress-tracker li:nth-child(2)').classList.remove('in-progress');
+   document.querySelector('.progress-tracker li:nth-child(3)').classList.add('in-progress');
+    
     const text = document.getElementById('inputText').value;
     let modifiedText = text;
 
