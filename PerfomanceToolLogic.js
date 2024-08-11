@@ -176,7 +176,13 @@ function showNewTextField() {
     
     // UI Steps enrichment
     // document.getElementById('inputText').scrollIntoView({ behavior: 'smooth' });
-    document.querySelector('.progress-tracker').scrollIntoView({ behavior: 'smooth' });
+    document.addEventListener('DOMContentLoaded', function() {
+    const element = document.querySelector('progress-tracker');
+    window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+    });
+});
     
     /// UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
