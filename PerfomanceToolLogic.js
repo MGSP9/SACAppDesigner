@@ -154,7 +154,9 @@ function processDuplicates(text, keyword) {
             newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
                         
             console.log (newText);
-            newText = newText.replace (`${keyword.slice(1)}_${match.split('.')[0]}`+"()", `${keyword.slice(1)}_${match.split('.')[0]}`);
+const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
+newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
+
             
             console.log (newText);
             newText = `${variableName}\n${newText}`;
@@ -199,6 +201,6 @@ function processDuplicates(text, keyword) {
 
     // Highlight the changes made by the function
     const tempElement = document.createElement('div');
-    tempElement.innerHTML = "// #### Performance gains in script ##### \n 1. We created variables for your datasources, so that the system only request them once. \n 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
+    tempElement.innerHTML = "// #### Performance gains in script ##### \n // 1. We created variables for your datasources, so that the system only request them once. \n // 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n // 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
     document.getElementById('inputText').value = tempElement.innerHTML;
 }
