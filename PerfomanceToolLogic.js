@@ -121,7 +121,7 @@ function getInTouch() {
 
 function showNewTextField() {
     const text = document.getElementById('inputText').value;
-    const modifiedText = 'cool ' + text;
+    const modifiedText = text;
 
     // Function to process duplicates
     function processDuplicates(text, keyword) {
