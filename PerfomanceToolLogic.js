@@ -119,29 +119,3 @@
             window.open("https://datachance.nl/contact", "_blank");
         }
 
-    function showNewTextField() {
-    let text = document.getElementById('inputText').value;
-
-    // Logic to replace duplicate method calls with variables
-    const methods = ['getDataSource', 'getPlanning', 'getMember', 'getMembers', 'getInputControlDataSource'];
-    methods.forEach(method => {
-        const regex = new RegExp(`(\\w+)\\.${method}`, 'g');
-        const matches = text.match(regex) || [];
-        if (matches.length > 1) {
-            const uniqueMatches = [...new Set(matches)];
-            uniqueMatches.forEach(match => {
-                const varName = `ds_${match.split('.')[0]}`;
-                text = text.replace(new RegExp(`\\b${match}\\b`, 'g'), (m, offset) => {
-                    if (offset === text.indexOf(m)) {
-                        return `var ${varName} = ${m};\n${varName}`;
-                    }
-                    return varName;
-                });
-            });
-        }
-    });
-
-    // Return the adapted text
-    let newtext = text;
-    document.getElementById('inputText').value = newtext;
-}
