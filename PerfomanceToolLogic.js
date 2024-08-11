@@ -135,7 +135,7 @@ function showNewTextField() {
 
     // Function to process duplicates
     function processDuplicates(text, keyword) {
-        const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
+        const regex = new RegExp(`(\\w+)\\${keyword}\\(\\)`, 'g');
         const matches = text.match(regex) || [];
         const uniqueMatches = new Set(matches);
         let newText = text;
@@ -146,7 +146,7 @@ function showNewTextField() {
                 const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]}`;
                 if (!variableName.includes(')(')) {
                     newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                    newText = `${variableName}\n${newText}`;
+                    newText = `${variableName} = ${match.replace('()', '')}\n${newText}`;
                 }
             }
         });
