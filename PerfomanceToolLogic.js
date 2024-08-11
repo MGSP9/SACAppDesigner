@@ -123,16 +123,20 @@ function showNewTextField() {
     const text = document.getElementById('inputText').value;
     const modifiedText = text;
 
-    // Function to process keywords
-    function processKeywords(text, keyword) {
+    // Function to process duplicates
+    function processDuplicates(text, keyword) {
         const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
         const matches = text.match(regex) || [];
+        const uniqueMatches = new Set(matches);
         let newText = text;
 
-        matches.forEach(match => {
-            const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}`;
-            newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-            newText = `${variableName}\n${newText}`;
+        uniqueMatches.forEach(match => {
+            const count = matches.filter(m => m === match).length;
+            if (count > 1) {
+                const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}`;
+                newText = newText.replace(new RegExp(match, 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
+                newText = `${variableName}\n${newText}`;
+            }
         });
 
         return newText;
@@ -142,7 +146,7 @@ function showNewTextField() {
     const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
 
     keywords.forEach(keyword => {
-        processedText = processKeywords(processedText, keyword);
+        processedText = processDuplicates(processedText, keyword);
     });
 
     document.getElementById('inputText').value = processedText;
