@@ -59,7 +59,7 @@ function showResults() {
 
 
     /// UI tracker- step 2
- //   document.querySelector('.progress-tracker li:nth-child(1)').classList.remove('completed');
+    document.querySelector('.progress-tracker li:nth-child(1)').classList.add('completed');
     document.querySelector('.progress-tracker li:nth-child(2)').classList.add('in-progress');
 
     let tableRows = rows.map(row => {
@@ -126,7 +126,7 @@ function getInTouch() {
 
 function showNewTextField() {
     // UI step 3
- //   document.querySelector('.progress-tracker li:nth-child(2)').classList.remove('in-progress');
+  document.querySelector('.progress-tracker li:nth-child(2)').classList.add('completed');
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('in-progress');
 
     const text = document.getElementById('inputText').value;
@@ -178,7 +178,7 @@ function showNewTextField() {
     document.getElementById('inputText').scrollIntoView({ behavior: 'smooth' });
     
     /// UI tracker- step 4
-//    document.querySelector('.progress-tracker li:nth-child(3)').classList.remove('completed');
+    document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
     document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
 
     // Highlight the changes made by the function
