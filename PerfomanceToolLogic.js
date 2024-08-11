@@ -159,7 +159,7 @@ newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
 
             
             console.log (newText);
-            newText = `${variableName}\n${newText}`;
+            newText = `${variableName};\n${newText}`;
               console.log (newText);
         }
     });
