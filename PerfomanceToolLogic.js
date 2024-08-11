@@ -150,3 +150,11 @@ function showNewTextField() {
     });
 
     document.getElementById('inputText').value = processedText;
+
+    // Highlight the changes made by the function
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = processedText.replace('cool', '<span style="background-color: yellow;">cool</span>');
+    document.getElementById('inputText').parentElement.innerHTML = `
+        <textarea id="inputText" placeholder="Enter your SAC script here...">${tempElement.innerHTML}</textarea>
+    `;
+}
