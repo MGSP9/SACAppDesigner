@@ -69,8 +69,8 @@ function showResults() {
             <tr class="member">
                 <td>${row.name}</td>
                 <td>${row.count}</td>
-                <td>${row.time.toFixed(2)}</td>
                 <td>${row.uniqueCount}</td>
+                <td>${row.time.toFixed(2)}</td>
                 <td>${row.uniqueTime.toFixed(2)}</td>
                 <td>${optimalisationReason}</td>
                 <td>${improvements}</td>
@@ -82,8 +82,8 @@ function showResults() {
         <tr class="total">
             <td>Total</td>
             <td>${getDataSourceCount + getPlanningCount + getMemberCount + getMembersCount + getInputControlDataSourceCount + setDimensionFilterCount}</td>
-            <td>${totalSeconds.toFixed(2)}</td>
             <td>${uniquegetDataSourceCount + uniquegetPlanningCount + uniquegetMemberCount + uniquegetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
+            <td>${totalSeconds.toFixed(2)}</td>
             <td>${uniqueSeconds.toFixed(2)}</td>
             <td></td>
             <td></td>
@@ -94,11 +94,11 @@ function showResults() {
         <h2 style="color: white;"><i class="fas fa-table"></i> Optimization Report</h2>
         <table class="table">
             <tr>
-                <th><i class="fas fa-list"></i> Data Request Functions</th>
-                <th><i class="fas fa-sort-numeric-up"></i> Times Used</th>
-                <th><i class="fas fa-clock"></i> Total Time (seconds)</th>
-                <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Times Used</th>
-                <th><i class="fas fa-stopwatch"></i> Unique Time (seconds)</th>
+                <th><i class="fas fa-list"></i> Data Request types</th>
+                <th><i class="fas fa-sort-numeric-up"></i> Times Requested</th>
+                <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Requests </th>
+                <th><i class="fas fa-clock"></i> Current expected Time (seconds)</th>
+                <th><i class="fas fa-stopwatch"></i> Optimized expected Time (seconds)</th>
                 <th><i class="fas fa-exclamation-circle"></i> Optimalisation Reason</th>
                 <th><i class="fas fa-lightbulb"></i> Improvements</th>
             </tr>
