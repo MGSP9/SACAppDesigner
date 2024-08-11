@@ -147,8 +147,10 @@ function processDuplicates(text, keyword) {
               console.log (newText);
               console.log (match.split('.')[0])
                console.log (match+"()")
-            newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                console.log (newText);
+            console.log (g)
+            console.log (new RegExp(match+"()", 'g'))
+             newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
+            console.log (newText);
             newText = `${variableName}\n${newText}`;
               console.log (newText);
         }
