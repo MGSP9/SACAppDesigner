@@ -125,11 +125,10 @@ function getInTouch() {
 }
 
 function showNewTextField() {
+    // UI step 3
+    document.querySelector('.progress-tracker li:nth-child(2)').classList.remove('in-progress');
+    document.querySelector('.progress-tracker li:nth-child(3)').classList.add('in-progress');
 
-    /// ui step 3
-   document.querySelector('.progress-tracker li:nth-child(2)').classList.remove('in-progress');
-   document.querySelector('.progress-tracker li:nth-child(3)').classList.add('in-progress');
-    
     const text = document.getElementById('inputText').value;
     let modifiedText = text;
 
