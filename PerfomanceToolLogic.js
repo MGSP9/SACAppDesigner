@@ -117,8 +117,8 @@ function showResults() {
     `;
 
     // Scroll to the results section
-    // document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
-       window.scrollTo({ bottom: 2, behavior: 'smooth' });
+     document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
+   //    window.scrollTo({ bottom: 2, behavior: 'smooth' });
 }
 
 function getInTouch() {
