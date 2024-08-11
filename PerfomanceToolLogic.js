@@ -173,15 +173,10 @@ function showNewTextField() {
     });
 
     document.getElementById('inputText').value = processedText;
-    
-    // UI Steps enrichment
-    // document.getElementById('inputText').scrollIntoView({ behavior: 'smooth' });
-    document.addEventListener('DOMContentLoaded', function() {
-    const element = document.querySelector('progress-tracker');
+
     window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-    });
+    top: 0,
+    behavior: 'smooth'
 });
     
     /// UI tracker- step 4
