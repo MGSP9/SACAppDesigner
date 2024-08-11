@@ -122,8 +122,13 @@ function getInTouch() {
 function showNewTextField() {
     const text = document.getElementById('inputText').value;
     const modifiedText = 'cool ' + text;
-    document.getElementById('inputText').value = modifiedText;
 
-    // Highlight the changes made by the function
-    document.getElementById('inputText').style.backgroundColor = 'yellow';
+    // Create a temporary element to hold the modified text with highlighted word
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = modifiedText.replace('cool', '<span style="background-color: yellow;">cool</span>');
+
+    // Set the innerHTML of the textarea's parent element to the modified text
+    document.getElementById('inputText').parentElement.innerHTML = `
+        <textarea id="inputText" placeholder="Enter your SAC script here...">${tempElement.innerHTML}</textarea>
+    `;
 }
