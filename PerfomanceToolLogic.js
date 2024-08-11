@@ -163,12 +163,19 @@ function showNewTextField() {
         processedText = processDuplicates(processedText, keyword);
     });
 
-    document.getElementById('inputText').value = processedText;
-
     // Highlight the changes made by the function
     const tempElement = document.createElement('div');
     tempElement.innerHTML = "// #### Performance gains in script ##### \n 1. We created variables for your datasources, so that the system only request them once. \n 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
-    document.getElementById('inputText').parentElement.innerHTML = `
-        <textarea id="inputText" placeholder="Enter your SAC script here...">${tempElement.innerHTML}</textarea>
-    `;
+
+    // Add white header with the text "Optimized script suggestion"
+    const header = document.createElement('div');
+    header.style.backgroundColor = 'white';
+    header.style.padding = '10px';
+    header.style.borderBottom = '1px solid #ccc';
+    header.innerHTML = "<strong>Optimized script suggestion</strong>";
+
+    const parentElement = document.getElementById('inputText').parentElement;
+    parentElement.innerHTML = '';
+    parentElement.appendChild(header);
+    parentElement.appendChild(tempElement);
 }
