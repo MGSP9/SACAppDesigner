@@ -111,10 +111,10 @@ h1 {
 .progress-tracker {
   position: fixed;
   top: 10px;
-  left: 50%;
+  left: 20%;
   transform: translateX(-50%);
-  width: 10%;
-  background: white;
+  width: 60%;
+  background: #78bcc4;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
