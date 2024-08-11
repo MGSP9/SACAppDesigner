@@ -117,7 +117,13 @@ function showResults() {
     `;
 
     // Scroll to the results section
-    document.getElementById('optimization').scrollIntoView({ behavior: 'smooth' });
+        // Set the progress-list element above the optimization document
+    const progressList = document.querySelector('.progress-list');
+    const optimizationSection = document.getElementById('optimization');
+    optimizationSection.parentNode.insertBefore(progressList, optimizationSection);
+}
+
+    document.getElementById('.progress-list').scrollIntoView({ behavior: 'smooth' });
 }
 
 function getInTouch() {
