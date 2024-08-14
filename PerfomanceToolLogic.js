@@ -134,74 +134,58 @@ function showNewTextField() {
     let modifiedText = text;
 
     // Function to process duplicates
-function processDuplicates(text, keyword) {
-    const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
-    const matches = text.match(regex) || [];
-    const uniqueMatches = new Set(matches);
-    let newText = text;
+    function processDuplicates(text, keyword) {
+        const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
+        const matches = text.match(regex) || [];
+        const uniqueMatches = new Set(matches);
+        let newText = text;
 
-    uniqueMatches.forEach(match => {
-        const count = matches.filter(m => m === match).length;
-        if (count > 1) {
-            const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
-              console.log (newText);
-    
-            console.log ("Replacement text");
-            console.log (new RegExp(match+"()", 'g'));
-            console.log ("New text");
-            console.log (`${keyword.slice(1)}_${match.split('.')[0]}`);
-                      
-            newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                        
-            console.log (newText);
-const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
-newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
+        uniqueMatches.forEach(match => {
+            const count = matches.filter(m => m === match).length;
+            if (count > 1) {
+                const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
+                newText = newText.replace(new RegExp(match + "\\()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
+                const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
+                newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
+                newText = `${variableName};\n${newText}`;
+            }
+        });
 
-            
-            console.log (newText);
-            newText = `${variableName};\n${newText}`;
-              console.log (newText);
-        }
-    });
-
-
-
-    return newText;
-}
+        return newText;
+    }
 
     // Function to process .setDimensionFilter exception
-function processDimensionFilter(text) {
-    const regex = /\.setDimensionFilter\("([^"]+)",\s*([^"]+)\)/g;
-    return text.replace(regex, (match, p1, p2) => {
-        if (!p2.includes('{') && !p2.includes('}')) {
-            return `.setDimensionFilter("${p1}", {id: ${p2}, description: ${p2}})`;
-        }
-        return match;
+    function processDimensionFilter(text) {
+        const regex = /\.setDimensionFilter\("([^"]+)",\s*([^"]+)\)/g;
+        return text.replace(regex, (match, p1, p2) => {
+            if (!p2.includes('{') && !p2.includes('}')) {
+                return `.setDimensionFilter("${p1}", {id: ${p2}, description: ${p2}})`;
+            }
+            return match;
+        });
+    }
+
+    // Apply the .setDimensionFilter exception
+    modifiedText = processDimensionFilter(modifiedText);
+
+    let processedText = modifiedText;
+    const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
+
+    keywords.forEach(keyword => {
+        processedText = processDuplicates(processedText, keyword);
     });
-}
 
-// Example usage
-let modifiedText = 'getDataSource_tbl_Invoer.setDimensionFilter("Version", gs_AppVersie);';
-modifiedText = processDimensionFilter(modifiedText);
+    document.getElementById('inputText').value = processedText;
 
-let processedText = modifiedText;
-const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
+    // UI Steps enrichment
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-keywords.forEach(keyword => {
-    processedText = processDuplicates(processedText, keyword);
-});
+    // UI tracker- step 4
+    document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
+    document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
 
-document.getElementById('inputText').value = processedText;
-
-// UI Steps enrichment
-window.scrollTo({ top: 0, behavior: 'smooth' });
-
-// UI tracker- step 4
-document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
-document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
-
-// Highlight the changes made by the function
-const tempElement = document.createElement('div');
-tempElement.innerHTML = "// #### Performance gains in script ##### \n // 1. We created variables for your datasources, so that the system only request them once. \n // 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n // 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
-document.getElementById('inputText').value = tempElement.innerHTML;
+    // Highlight the changes made by the function
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = "// #### Performance gains in script ##### \n // 1. We created variables for your datasources, so that the system only request them once. \n // 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n // 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
+    document.getElementById('inputText').value = tempElement.innerHTML;
 }
