@@ -69,8 +69,8 @@ function showResults() {
             <tr class="member">
                 <td>${row.name}</td>
                 <td>${row.count}</td>
-                <td>${row.uniqueCount}</td>
                 <td>${row.time.toFixed(2)}</td>
+                <td>${row.uniqueCount}</td>
                 <td>${row.uniqueTime.toFixed(2)}</td>
                 <td>${optimalisationReason}</td>
                 <td>${improvements}</td>
@@ -82,8 +82,8 @@ function showResults() {
         <tr class="total">
             <td>Total</td>
             <td>${getDataSourceCount + getPlanningCount + getMemberCount + getMembersCount + getInputControlDataSourceCount + setDimensionFilterCount}</td>
-            <td>${uniquegetDataSourceCount + uniquegetPlanningCount + uniquegetMemberCount + uniquegetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
             <td>${totalSeconds.toFixed(2)}</td>
+            <td>${uniquegetDataSourceCount + uniquegetPlanningCount + uniquegetMemberCount + uniquegetMembersCount + uniqueGetInputControlDataSourceCount + uniqueSetDimensionFilterCount}</td>
             <td>${uniqueSeconds.toFixed(2)}</td>
             <td></td>
             <td></td>
@@ -94,11 +94,11 @@ function showResults() {
         <h2 style="color: white;"><i class="fas fa-table"></i> Optimization Report</h2>
         <table class="table">
             <tr>
-                <th><i class="fas fa-list"></i> Data Request types</th>
-                <th><i class="fas fa-sort-numeric-up"></i> Times Requested</th>
-                <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Requests </th>
-                <th><i class="fas fa-clock"></i> Current expected Time (seconds)</th>
-                <th><i class="fas fa-stopwatch"></i> Optimized expected Time (seconds)</th>
+                <th><i class="fas fa-list"></i> Data Request Functions</th>
+                <th><i class="fas fa-sort-numeric-up"></i> Times Used</th>
+                <th><i class="fas fa-clock"></i> Total Time (seconds)</th>
+                <th><i class="fas fa-sort-numeric-up-alt"></i> Unique Times Used</th>
+                <th><i class="fas fa-stopwatch"></i> Unique Time (seconds)</th>
                 <th><i class="fas fa-exclamation-circle"></i> Optimalisation Reason</th>
                 <th><i class="fas fa-lightbulb"></i> Improvements</th>
             </tr>
@@ -134,32 +134,47 @@ function showNewTextField() {
     let modifiedText = text;
 
     // Function to process duplicates
-    function processDuplicates(text, keyword) {
-        const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
-        const matches = text.match(regex) || [];
-        const uniqueMatches = new Set(matches);
-        let newText = text;
+function processDuplicates(text, keyword) {
+    const regex = new RegExp(`(\\w+)\\${keyword}`, 'g');
+    const matches = text.match(regex) || [];
+    const uniqueMatches = new Set(matches);
+    let newText = text;
 
-        uniqueMatches.forEach(match => {
-            const count = matches.filter(m => m === match).length;
-            if (count > 1) {
-                const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
-                newText = newText.replace(new RegExp(match + "\\()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
-                const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
-                newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
-                newText = `${variableName};\n${newText}`;
-            }
-        });
+    uniqueMatches.forEach(match => {
+        const count = matches.filter(m => m === match).length;
+        if (count > 1) {
+            const variableName = `var ${keyword.slice(1)}_${match.split('.')[0]} = ${match}()`;
+              console.log (newText);
+    
+            console.log ("Replacement text");
+            console.log (new RegExp(match+"()", 'g'));
+            console.log ("New text");
+            console.log (`${keyword.slice(1)}_${match.split('.')[0]}`);
+                      
+            newText = newText.replace(new RegExp(match+"()", 'g'), `${keyword.slice(1)}_${match.split('.')[0]}`);
+                        
+            console.log (newText);
+const regex = new RegExp(`${keyword.slice(1)}_${match.split('.')[0]}\\(\\)`, 'g');
+newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
 
-        return newText;
-    }
+            
+            console.log (newText);
+            newText = `${variableName};\n${newText}`;
+              console.log (newText);
+        }
+    });
+
+
+
+    return newText;
+}
 
     // Function to process .setDimensionFilter exception
     function processDimensionFilter(text) {
-        const regex = /\.setDimensionFilter\("([^"]+)",\s*([^"]+)\)/g;
+        const regex = /\.setDimensionFilter\("([^"]+)",\s*"([^"]+)"\)/g;
         return text.replace(regex, (match, p1, p2) => {
             if (!p2.includes('{') && !p2.includes('}')) {
-                return `.setDimensionFilter("${p1}", {id: ${p2}, description: ${p2}})`;
+                return `.setDimensionFilter("${p1}", {id: "${p2}", description: "${p2}"})`;
             }
             return match;
         });
@@ -176,10 +191,10 @@ function showNewTextField() {
     });
 
     document.getElementById('inputText').value = processedText;
-
+    
     // UI Steps enrichment
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
+    
     // UI tracker- step 4
     document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
     document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
