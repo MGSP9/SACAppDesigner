@@ -170,37 +170,38 @@ newText = newText.replace(regex, `${keyword.slice(1)}_${match.split('.')[0]}`);
 }
 
     // Function to process .setDimensionFilter exception
-    function processDimensionFilter(text) {
-        const regex = /\.setDimensionFilter\("([^"]+)",\s*"([^"]+)"\)/g;
-        return text.replace(regex, (match, p1, p2) => {
-            if (!p2.includes('{') && !p2.includes('}')) {
-                return `.setDimensionFilter("${p1}", {id: "${p2}", description: "${p2}"})`;
-            }
-            return match;
-        });
-    }
-
-    // Apply the .setDimensionFilter exception
-    modifiedText = processDimensionFilter(modifiedText);
-
-    let processedText = modifiedText;
-    const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
-
-    keywords.forEach(keyword => {
-        processedText = processDuplicates(processedText, keyword);
+function processDimensionFilter(text) {
+    const regex = /\.setDimensionFilter\("([^"]+)",\s*([^"]+)\)/g;
+    return text.replace(regex, (match, p1, p2) => {
+        if (!p2.includes('{') && !p2.includes('}')) {
+            return `.setDimensionFilter("${p1}", {id: ${p2}, description: ${p2}})`;
+        }
+        return match;
     });
+}
 
-    document.getElementById('inputText').value = processedText;
-    
-    // UI Steps enrichment
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // UI tracker- step 4
-    document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
-    document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
+// Example usage
+let modifiedText = 'getDataSource_tbl_Invoer.setDimensionFilter("Version", gs_AppVersie);';
+modifiedText = processDimensionFilter(modifiedText);
 
-    // Highlight the changes made by the function
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = "// #### Performance gains in script ##### \n // 1. We created variables for your datasources, so that the system only request them once. \n // 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n // 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
-    document.getElementById('inputText').value = tempElement.innerHTML;
+let processedText = modifiedText;
+const keywords = ['.getDataSource', '.getPlanning', '.getMember', '.getMembers', '.getInputControlDataSource'];
+
+keywords.forEach(keyword => {
+    processedText = processDuplicates(processedText, keyword);
+});
+
+document.getElementById('inputText').value = processedText;
+
+// UI Steps enrichment
+window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// UI tracker- step 4
+document.querySelector('.progress-tracker li:nth-child(3)').classList.add('completed');
+document.querySelector('.progress-tracker li:nth-child(4)').classList.add('in-progress');
+
+// Highlight the changes made by the function
+const tempElement = document.createElement('div');
+tempElement.innerHTML = "// #### Performance gains in script ##### \n // 1. We created variables for your datasources, so that the system only request them once. \n // 1.1 If you use the datasources also in different scripts, make sure to create global variables for these to save time.\n // 2. We surpass data requests in setDimensionFilter by using the memberinfo object\n\n" + processedText;
+document.getElementById('inputText').value = tempElement.innerHTML;
 }
